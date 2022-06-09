@@ -1,0 +1,49 @@
+<% var endpointUrl; var duetime; var user; var logs; %>
+<h2>Welcome to 10 minute endpoint</h2>
+<h3>Endpoint testing made easy</h3>
+
+<p id="expiryText">Your endpoint will expire in <span id="duetime">00:00</span></p>
+<p>
+    <%= endpointUrl %>
+</p>
+<p>Your user info is <%= JSON.stringify(user) %></p>
+<p>Your logs info is <%= JSON.stringify(logs) %></p>
+<p onClick="copyEndpointUrlToClipboard(event)">Copy to clipboard</p>
+
+<script src="js/countdown.js"></script>
+<script>
+    window.onload = () => {
+        const duetime = document.getElementById("duetime");
+        const expiryText = document.getElementById("expiryText");
+
+        const formatTime = (t) => {
+            return t < 10 ? "0" + t : t;
+        };
+        const renderCountdown = function(time) {
+            const timeLeft = `${formatTime(time.minutes)}:${formatTime(time.seconds)}`;
+            duetime.innerText = timeLeft;
+        }
+        const countdownComplete = function() {
+            expiryText.innerText = "Your endpoint has expired. Refresh the page to get a new one.";
+        }
+
+        const countdownTimer = new CountDown(
+            <%= duetime %>,
+            renderCountdown,
+            countdownComplete
+        );
+    }
+
+    function copyEndpointUrlToClipboard(event) {
+        navigator.clipboard.writeText("<%= endpointUrl %>").then(function() {
+                console.log('Async: Copying to clipboard was successful!');
+                event.target.innerText = "Copy to clipboard (Copied!)";
+                setTimeout(() => {
+                    event.target.innerText = "Copy to clipboard";
+                }, 5000);
+            },
+            function(err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+    }
+</script>
