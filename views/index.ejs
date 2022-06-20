@@ -1,18 +1,35 @@
-<% var endpointUrl; var duetime; var user; var logs; %>
-<h2>Welcome to 10 minute endpoint</h2>
-<h3>Endpoint testing made easy</h3>
+<section class="p-5 hero has-background-primary-dark has-text-light">
+    <div class="hero-content has-text-centered">
+        <div class="container">
+            <h1 class="title has-text-light is-1">Welcome to 10 minute endpoint</h1>
+            <h2 class="subtitle has-text-light is-3 mb-6">Endpoint testing made easy</h2>
+            <div class="columns is-centered">
+                <div class="column is-half is-flex">
+                    <input class="input is-primary is-outlined" value="<%= endpointUrl %>" disabled />
+                    <button class="button is-primary ml-4" onClick="copyEndpointUrlToClipboard(event)">Copy To Clipboard</button>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column pt-0 is-half has-text-white-ter">
+                    <p id="expiryText">Your endpoint will expire in
+                        <span id="duetime">00:00</span>
+                    </p>
+                </div>
+            </div>
 
-<p id="expiryText">Your endpoint will expire in <span id="duetime">00:00</span></p>
-<p>
-    <%= endpointUrl %>
-</p>
-<p>Your user info is <%= JSON.stringify(user) %></p>
-<p>Your logs info is <%= JSON.stringify(logs) %></p>
-<p onClick="copyEndpointUrlToClipboard(event)">Copy to clipboard</p>
+        </div>
+    </div>
+</section>
+<section id="logs-section" class="p-5 has-background-primary">
+</section>
+
 
 <script src="js/countdown.js"></script>
 <script>
+    const endpointUrl = "<%= endpointUrl %>";
+    const endpointParam = "<%= endpointParam %>";
     window.onload = () => {
+        window.logs = {};
         const duetime = document.getElementById("duetime");
         const expiryText = document.getElementById("expiryText");
 
@@ -24,7 +41,7 @@
             duetime.innerText = timeLeft;
         }
         const countdownComplete = function() {
-            expiryText.innerText = "Your endpoint has expired. Refresh the page to get a new one.";
+            expiryText.innerHTML = `Your endpoint has expired. <span class="tag is-link is-hover" onclick="refreshPage()">Refresh</span> the page to get a new one.`;
         }
 
         const countdownTimer = new CountDown(
@@ -32,18 +49,138 @@
             renderCountdown,
             countdownComplete
         );
+
+
+        updateLogs();
     }
 
     function copyEndpointUrlToClipboard(event) {
         navigator.clipboard.writeText("<%= endpointUrl %>").then(function() {
                 console.log('Async: Copying to clipboard was successful!');
-                event.target.innerText = "Copy to clipboard (Copied!)";
+                event.target.innerText = "Copy To Clipboard (Copied!)";
                 setTimeout(() => {
-                    event.target.innerText = "Copy to clipboard";
+                    event.target.innerText = "Copy To Clipboard";
                 }, 5000);
             },
             function(err) {
                 console.error('Async: Could not copy text: ', err);
             });
+    }
+
+    const processLogs = function(logs) {
+        temp = [];
+        for (const log of logs) {
+            if (!window.logs[log.id]) {
+                window.logs[log.id] = true;
+                temp.push(log);
+            }
+        }
+
+        return temp;
+    }
+
+
+    const updateLogs = async function() {
+        const response = await fetch(`/api/logs/<%= endpointParam %>`);
+        const logs = await response.json();
+
+        const deltalogs = processLogs(logs);
+        renderLogs(deltalogs)
+
+        setTimeout(updateLogs, 1000);
+    }
+
+    function toggleHiddenLog(id) {
+        const elem = document.getElementById(`log-${id}`);
+        const details = document.getElementById(`log-details-${id}`);
+        const toggler = document.getElementById(`log-toggle-hidden-${id}`);
+        details.classList.toggle("is-hidden");
+        if (details.classList.contains("is-hidden"))
+            toggler.innerText = "v";
+        else
+            toggler.innerText = "^";
+    }
+
+    function refreshPage() {
+        document.location.reload();
+    }
+
+    const renderLogs = function(logs) {
+        for (const log of logs) {
+            const {
+                method,
+                id,
+                createdAt: createdAtString,
+                query,
+                body
+            } = log;
+            const tagStyle = method == "POST" ? "is-success" : (method == "GET" ? "is-info" : "is-dark");
+            const createdAt = new Date(createdAtString);
+            const formattedBody = JSON.stringify(body, null, "\t");
+            const formattedDate = createdAt.toDateString() + ", " + createdAt.toLocaleTimeString();
+
+            const newLog = document.createElement("div");
+            newLog.id = `log-${id}`;
+            newLog.classList.add("box");
+            newLog.classList.add("has-background-primary-light");
+
+            let logHTML = `
+        <div>
+            <div class="is-flex is-justify-content-space-between mb-4">
+                <p class="is-size-3 m-0">${formattedDate}</p>
+                <span class="tag ${tagStyle}">${method}</span>
+            </div>
+            <div class="is-flex is-justify-content-space-between">
+                <p class="is-size-5 m-0">#${id}</p>
+                <button id="log-toggle-hidden-${id}" class="tag button is-primary" onclick="toggleHiddenLog('${id}')">v</button>
+            </div>
+        </div>
+        <div id="log-details-${id}" class="has-background-white p-5 mt-4 box columns h-card is-hidden">
+        `;
+            if (!Object.keys(query).length) {
+                logHTML += `
+            <div class="column is-half is-flex is-flex-direction-column">
+                <p class="is-size-5 m-0 mb-4">Query Data</p>
+                <div class="is-flex-grow-1 overflow-auto">
+                    <pre class="border-radius is-flex-grow-1 p-2 h-full">(empty)</pre>
+                </div>
+            </div>`;
+            } else {
+                logHTML += `
+            <div class="column is-half is-flex is-flex-direction-column">
+                <p class="is-size-5 m-0 mb-4">Query Data</p>
+                <div class="is-flex-grow-1 overflow-auto">
+                    <table class="table is-bordered is-narrow">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>`;
+                for (const [key, value] of Object.entries(query)) {
+                    logHTML += `
+                        <tbody>
+                            <tr>
+                                <td>${key}</td>
+                                <td><code>${value}</code></td>
+                            </tr>
+                        </tbody>`;
+                }
+                logHTML += `
+                    </table>
+                </div>
+            </div>`;
+            }
+            logHTML += `
+            <div class="column is-half is-flex is-flex-direction-column">
+                <p class="is-size-5 m-0 mb-4">Body Data</p>
+                <div class="is-flex-grow-1 overflow-auto">
+                    <pre class="border-radius is-flex-grow-1 p-2 h-full">${formattedBody}</pre>
+                </div>
+            </div>
+        </div>`;
+            newLog.innerHTML = logHTML;
+            document.getElementById("logs-section").prepend(newLog);
+        }
     }
 </script>

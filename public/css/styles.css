@@ -1,0 +1,23 @@
+.border-radius {
+    border-radius: 6px;
+}
+
+.h-card {
+    height: 400px;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.fill-height {
+    height: 100%;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.is-hover {
+    cursor: pointer;
+}

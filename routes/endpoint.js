@@ -12,7 +12,7 @@ router.use("/:endpoint", cors(), async (req, res) => {
     const user = await User.findById(endpoint);
 
     if(!user)
-        res.status(404).end();
+        return res.status(404).json({});
 
     const clientIP = requestIp.getClientIp(req);
 
@@ -24,7 +24,7 @@ router.use("/:endpoint", cors(), async (req, res) => {
         headers: req.headers
     }
 
-    const log = await Log.create(endpoint, details);
+    const log = await Log.createLog(endpoint, details);
 
     res.status(200).json(log);
     console.log(log);

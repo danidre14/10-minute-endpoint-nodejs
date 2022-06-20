@@ -10,29 +10,33 @@ const Log = require("../models/Log");
 router.get("/", async (req, res) => {
     const usageData = req.session.usageData;
 
-    if (usageData.endpoint.param === null) { // || endpointIsExpired(usageData.endpoint)) {
+    if (usageData.endpoint.param === null) { // || User.isExpired(usageData.endpoint.param)) {
         const endpoint = await createEndPoint();
 
         usageData.endpoint = endpoint;
     }
 
-    console.log(usageData.endpoint.param)
-
     const user = await User.findById(usageData.endpoint.param);
+
+    if (!user) {
+        delete req.session.usageData;
+        return res.redirect("/");
+    }
+
     const logs = await Log.findByUserId(usageData.endpoint.param);
 
     const baseUrl = req.protocol + "://" + req.get("host");
     const endpointUrl = baseUrl + "/endpoint/" + usageData.endpoint.param;
     const duetime = usageData.endpoint.expires;
 
-    const vars = { endpointUrl, duetime, user, logs };
+    const vars = { endpointUrl, duetime, logs, endpointParam: usageData.endpoint.param };
 
     res.render("index", vars);
 });
 
 async function createEndPoint() {
-    const user = await User.create();
-    
+    const user = await User.createUser();
+
     const param = user.id;
     const expires = user.expiresAt.getTime();
 
@@ -41,7 +45,12 @@ async function createEndPoint() {
 
 function endpointIsExpired(endpoint) {
     try {
-        return Date.now() > endpoint.expires;
+        let duetime;
+        if (endpoint.expiresAt)
+            duetime = endpoint.expiresAt.getTime();
+        else
+            duetime = endpoint.expires;
+        return Date.now() > duetime;
     } catch {
         return true;
     }

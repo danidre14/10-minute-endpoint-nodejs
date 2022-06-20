@@ -7,6 +7,8 @@ const session = require("express-session");
 
 const sessionMiddleware = require("./middleware/session");
 
+const User = require("./models/User");
+
 const sessionConfig = {
     secret: process.env.SESSION_SECRET,
     resave: false, //dont save variables if nothing has changed
@@ -21,8 +23,9 @@ if (process.env.NODE_ENV === "production") {
 
 // routes
 const indexRouter = require("./routes/index");
-const apiRouter = require("./apis/index");
 const endpointRouter = require("./routes/endpoint");
+
+const apiRouter = require("./apis/index");
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -51,4 +54,18 @@ app.use("/endpoint", endpointRouter);
 
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+
+    deleteExpiredEndpoints();
+});
+
+// delete expired users every 10 minutes
+
+const deleteExpiredEndpoints = async function () {
+    console.log("Deleting expired endpoints");
+    const count = await User.deleteExpiredUsers();
+    console.log(`Deleted ${count} expired endpoint(s)`);
+
+    setTimeout(deleteExpiredEndpoints, 1000 * 60 * 10);
+}
