@@ -23,6 +23,8 @@
 - [x] Add button/link to refresh page when endpoint is expired
 - [ ] Add HashNode and Linode attributions
 - [ ] Format code
+- [ ] Upload to github
+- [ ] Deploy to Linode
 
 ### Nice to have
 - [ ] Send 429 (Too many requests) response when too many requests are sent within a given time
