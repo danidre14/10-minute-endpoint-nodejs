@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const requestIp = require('request-ip');
 
 const router = express.Router();
@@ -7,7 +6,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Log = require("../models/Log");
 
-router.use("/:endpoint", cors({credentials: true, origin: true}), async (req, res) => {
+router.use("/:endpoint", async (req, res) => {
     const endpoint = req.params.endpoint;
     const user = await User.findById(endpoint);
 

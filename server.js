@@ -4,6 +4,10 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
+const cors = require("cors");
+
+app.use(cors());
+app.options(cors());
 
 const sessionMiddleware = require("./middleware/session");
 
