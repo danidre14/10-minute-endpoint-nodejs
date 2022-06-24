@@ -8,16 +8,17 @@
     <title>10 Minute Endpoint</title>
     <%- meta %>
     <%- style %>
-    <link rel="stylesheet" href="css/bulma-0.9.4/bulma/css/bulma.min.css"> 
+    <link rel="stylesheet" href="css/bulma-0.9.4/bulma/css/bulma.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <%- script %>
 </head>
 
-<body>
-    <div class="container">
-        <main id="main" class="content">
+<body class="has-background-light">
+    <div class="is-flex is-flex-direction-column vh-full has-background-primary">
+        <main id="main" class="content is-flex-grow-1 mb-0">
             <%- body %>
         </main>
+        <%- include("../partials/footer.ejs") %>
     </div>
 </body>
 

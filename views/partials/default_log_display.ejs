@@ -1,0 +1,62 @@
+<div id="default-log-display" class="columns">
+    <div class="column is-half is-flex is-flex-direction-column">
+        <p class="is-size-4 m-0 mb-4 has-text-light">Send a request to your endpoint!</p>
+        <p class="is-size-6 m-0 mb-4 has-text-light">Example:</p>
+        <div class="is-flex-grow-1 overflow-auto">
+            <pre id="default-log-display-code" class="border-radius is-flex-grow-1 p-2 h-full">fetch(endpointUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name: "Danidre",
+        cool: true,
+        numbers: 7
+    }),
+});</pre>
+        </div>
+    </div>
+    <div class="column is-half">
+        <button class="button is-primary is-light ml-4" onClick="sendRequestToEndpoint(event)">Send Request
+        </button>
+        <button class="button is-primary is-light ml-4" onClick="copyDefaultUrlToClipboard(event)">Copy To Clipboard
+        </button>
+    </div>
+</div>
+
+<script>
+    async function sendRequestToEndpoint(event) {
+        fetch(endpointUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: "Danidre",
+                cool: true,
+                numbers: 7
+            }),
+        });
+
+        console.log('Async: Fetch request was successful!');
+
+        event.target.innerText = "Send Request (Sent!)";
+        setTimeout(() => {
+            event.target.innerText = "Send Request";
+        }, 5000);
+    }
+
+    function copyDefaultUrlToClipboard(event) {
+        const code = document.getElementById("default-log-display-code").innerText;
+        navigator.clipboard.writeText(code).then(function() {
+                console.log('Async: Copying to clipboard was successful!');
+                event.target.innerText = "Copy To Clipboard (Copied!)";
+                setTimeout(() => {
+                    event.target.innerText = "Copy To Clipboard";
+                }, 5000);
+            },
+            function(err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+    }
+</script>

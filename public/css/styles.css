@@ -21,3 +21,15 @@
 .is-hover {
     cursor: pointer;
 }
+
+.vh-full {
+    min-height: 100vh;
+}
+
+.w-6 {
+    width: 1.5rem;
+}
+
+.h-6 {
+    height: 1.5rem;
+}

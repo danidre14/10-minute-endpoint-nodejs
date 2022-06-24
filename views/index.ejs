@@ -1,30 +1,9 @@
-<section class="p-5 hero has-background-primary-dark has-text-light">
-    <div class="hero-content has-text-centered">
-        <div class="container">
-            <h1 class="title has-text-light is-1">Welcome to 10 minute endpoint</h1>
-            <h2 class="subtitle has-text-light is-3 mb-6">Endpoint testing made easy</h2>
-            <div class="columns is-centered">
-                <div class="column is-half is-flex">
-                    <input class="input is-primary is-outlined" value="<%= endpointUrl %>" disabled />
-                    <button class="button is-primary ml-4" onClick="copyEndpointUrlToClipboard(event)">Copy To Clipboard</button>
-                </div>
-            </div>
-            <div class="columns is-centered">
-                <div class="column pt-0 is-half has-text-white-ter">
-                    <p id="expiryText">Your endpoint will expire in
-                        <span id="duetime">00:00</span>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<section id="logs-section" class="p-5 has-background-primary">
+<%- include("./partials/header.ejs") %>
+<section id="logs-section" class="my-6 container">
+    <%- include("./partials/default_log_display.ejs") %>
 </section>
 
 
-<script src="js/countdown.js"></script>
 <script>
     const endpointUrl = "<%= endpointUrl %>";
     const endpointParam = "<%= endpointParam %>";
@@ -93,12 +72,16 @@
     function toggleHiddenLog(id) {
         const elem = document.getElementById(`log-${id}`);
         const details = document.getElementById(`log-details-${id}`);
-        const toggler = document.getElementById(`log-toggle-hidden-${id}`);
+        const showDetailsBtn = document.getElementById(`log-show-details-${id}`);
+        const hideDetailsBtn = document.getElementById(`log-hide-details-${id}`);
         details.classList.toggle("is-hidden");
-        if (details.classList.contains("is-hidden"))
-            toggler.innerText = "v";
-        else
-            toggler.innerText = "^";
+        if (details.classList.contains("is-hidden")) {
+            showDetailsBtn.classList.remove("is-hidden")
+            hideDetailsBtn.classList.add("is-hidden")
+        } else {
+            showDetailsBtn.classList.add("is-hidden")
+            hideDetailsBtn.classList.remove("is-hidden")
+        }
     }
 
     function refreshPage() {
@@ -132,7 +115,16 @@
             </div>
             <div class="is-flex is-justify-content-space-between">
                 <p class="is-size-5 m-0">#${id}</p>
-                <button id="log-toggle-hidden-${id}" class="tag button is-primary" onclick="toggleHiddenLog('${id}')">v</button>
+                <button id="log-show-details-${id}" class="tag button is-primary" onclick="toggleHiddenLog('${id}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+</svg>
+                </button>
+                <button id="log-hide-details-${id}" class="tag button is-primary is-hidden" onclick="toggleHiddenLog('${id}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+</svg>
+                </button>
             </div>
         </div>
         <div id="log-details-${id}" class="has-background-white p-5 mt-4 box columns h-card is-hidden">
@@ -180,6 +172,11 @@
             </div>
         </div>`;
             newLog.innerHTML = logHTML;
+
+
+            if (!document.getElementById("default-log-display").classList.contains("is-hidden"))
+                document.getElementById("default-log-display").classList.add("is-hidden");
+
             document.getElementById("logs-section").prepend(newLog);
         }
     }

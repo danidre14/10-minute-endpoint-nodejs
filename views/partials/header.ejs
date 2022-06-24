@@ -1,0 +1,25 @@
+<% var endpointUrl; var duetime; var user; var logs; %>
+<section class="p-6 hero has-background-primary-dark has-text-light">
+    <div class="hero-content has-text-centered">
+        <div class="container">
+            <h1 class="title has-text-light is-1">Welcome to 10 minute endpoint</h1>
+            <h2 class="subtitle has-text-light is-3 mb-6">Endpoint testing made easy</h2>
+            <div class="columns is-centered">
+                <div class="column is-half is-flex">
+                    <input class="input is-primary is-outlined" value="<%= endpointUrl %>" disabled />
+                    <button class="button is-primary ml-4" onClick="copyEndpointUrlToClipboard(event)">Copy To Clipboard</button>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column pt-0 is-half has-text-white-ter">
+                    <p id="expiryText">Your endpoint will expire in
+                        <span id="duetime">00:00</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="js/countdown.js"></script>

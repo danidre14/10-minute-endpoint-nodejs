@@ -12,19 +12,21 @@
 - [x] Start logging endpoint requests
 - [ ] Style everything
 - [x] Show better date and time in logs
-- [ ] Add proper footer
-- [ ] Add proper header/hero
-- [ ] Add proper side colours
+- [x] Add proper footer
+- [x] Add proper header/hero
+- [x] Add proper side colours
 - [x] Only add divs that are new logs that don't already exist in html
-- [ ] Show "No logs" or "Empty" when no logs exist
-- [ ] Server crashes over time because an existing connection forcibly closes by remote host using MongoDB atlas. Find way to instantly restart server in production
-- [ ] Get favicons for drop downs
+- [x] Show "No logs" or "Empty" when no logs exist (shows example to send log)
+- [x] Server crashes over time because an existing connection forcibly closes by remote host using MongoDB atlas. Find way to instantly restart server in production (pm2 automatically restarts when crashed)
+- [x] Get favicons for drop downs
 - [ ] Fix styles on small devices
 - [x] Add button/link to refresh page when endpoint is expired
-- [ ] Add HashNode and Linode attributions
+- [x] Add HashNode and Linode attributions
 - [ ] Format code
-- [ ] Upload to github
-- [ ] Deploy to Linode
+- [x] Upload to github
+- [x] Deploy to Linode
+- [ ] Link to necessary pages
+- [ ] Publish and link to article
 
 ### Nice to have
 - [ ] Send 429 (Too many requests) response when too many requests are sent within a given time
