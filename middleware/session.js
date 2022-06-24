@@ -1,34 +1,32 @@
 const crypto = require("crypto");
-const axios = require("axios").default;
+
+const isBot = require("isbot-fast");
+const detector = require("spider-detector");
 
 const express = require("express");
 const router = express.Router();
 
 // Access the session as req.session
-router.get('/', function (req, res, next) {
-    if (!req.session.usageData) {
-        const usageData = {
-            token: generateUserToken(),
-            endpoint: {
-                param: null,
-                expires: null
-            }
-        };
+router.get("/", detector.middleware(), function (req, res, next) {
+    const isbot = isBot(req.get('user-agent'));
+    if (!isbot && !req.isSpider()) {
+        if (!req.session.usageData) {
+            const usageData = {
+                token: generateUserToken(),
+                endpoint: {
+                    param: null,
+                    expires: null
+                }
+            };
 
-        req.session.usageData = usageData;
-    }
+            req.session.usageData = usageData;
+        }
 
-    return next();
-    console.log(req.session)
-    if (req.session.views) {
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-        res.end()
+        return next();
     } else {
-        req.session.views = 1
-        res.end('welcome to the session demo. refresh!')
+        res.setHeader('Content-Type', 'text/html');
+        res.write("<p>Nothing found</p>");
+        res.end();
     }
 })
 
