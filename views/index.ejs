@@ -106,6 +106,7 @@
             newLog.id = `log-${id}`;
             newLog.classList.add("box");
             newLog.classList.add("has-background-primary-light");
+            newLog.classList.add("mx-4");
 
             let logHTML = `
         <div>
@@ -114,20 +115,23 @@
                 <span class="tag ${tagStyle}">${method}</span>
             </div>
             <div class="is-flex is-justify-content-space-between">
-                <p class="is-size-5 m-0">#${id}</p>
-                <button id="log-show-details-${id}" class="tag button is-primary" onclick="toggleHiddenLog('${id}')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-</svg>
-                </button>
-                <button id="log-hide-details-${id}" class="tag button is-primary is-hidden" onclick="toggleHiddenLog('${id}')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-</svg>
-                </button>
+                <p class="is-size-5-tablet m-0">ID: ${id.substr(3, 5) + id.substr(19,5)}</p>
+                <div>
+                    <span class="mr-3 is-size-5-tablet">Details</span>
+                    <button id="log-show-details-${id}" class="tag button is-primary" onclick="toggleHiddenLog('${id}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <button id="log-hide-details-${id}" class="tag button is-primary is-hidden" onclick="toggleHiddenLog('${id}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-        <div id="log-details-${id}" class="has-background-white p-5 mt-4 box columns h-card is-hidden">
+        <div id="log-details-${id}" class="has-background-white p-5 mt-4 box columns h-card overflow-auto is-hidden">
         `;
             if (!Object.keys(query).length) {
                 logHTML += `

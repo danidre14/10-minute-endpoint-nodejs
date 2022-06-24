@@ -1,5 +1,5 @@
-<div id="default-log-display" class="columns">
-    <div class="column is-half is-flex is-flex-direction-column">
+<div id="default-log-display" class="container columns m-0 is-tablet mw-1024">
+    <div class="column is-full-mobile is-four-fifths-tablet is-flex is-flex-direction-column">
         <p class="is-size-4 m-0 mb-4 has-text-light">Send a request to your endpoint!</p>
         <p class="is-size-6 m-0 mb-4 has-text-light">Example:</p>
         <div class="is-flex-grow-1 overflow-auto">
@@ -16,10 +16,10 @@
 });</pre>
         </div>
     </div>
-    <div class="column is-half">
-        <button class="button is-primary is-light ml-4" onClick="sendRequestToEndpoint(event)">Send Request
+    <div class="column is-flex is-flex-direction-column is-justify-content-flex-end">
+        <button class="button is-primary is-light mt-4" onClick="sendRequestToEndpoint(event)">Send Request
         </button>
-        <button class="button is-primary is-light ml-4" onClick="copyDefaultUrlToClipboard(event)">Copy To Clipboard
+        <button class="button is-primary is-light mt-4" onClick="copyDefaultUrlToClipboard(event)">Copy To Clipboard
         </button>
     </div>
 </div>

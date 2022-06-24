@@ -8,9 +8,8 @@
 - [x] Store endpoint in server database
 - [x] Delete expired endpoints from server database
 - [x] Set up a timeout job that deletes expired endpoints
-- [ ] Log a maximum of 20 requests at a time per endpoint (new ones replacing old ones)
 - [x] Start logging endpoint requests
-- [ ] Style everything
+- [x] Style everything
 - [x] Show better date and time in logs
 - [x] Add proper footer
 - [x] Add proper header/hero
@@ -19,17 +18,22 @@
 - [x] Show "No logs" or "Empty" when no logs exist (shows example to send log)
 - [x] Server crashes over time because an existing connection forcibly closes by remote host using MongoDB atlas. Find way to instantly restart server in production (pm2 automatically restarts when crashed)
 - [x] Get favicons for drop downs
-- [ ] Fix styles on small devices
+- [x] Fix styles on small devices
 - [x] Add button/link to refresh page when endpoint is expired
 - [x] Add HashNode and Linode attributions
-- [ ] Format code
 - [x] Upload to github
 - [x] Deploy to Linode
-- [ ] Link to necessary pages
+- [x] Link to necessary pages
+- [ ] Log a maximum of 20 requests at a time per endpoint (new ones replacing old ones)
+- [ ] Refactor server code
+- [ ] Refactor client code
 - [ ] Publish and link to article
+- [ ] Create and add favicon
+- [ ] Only generate endpoint for user interacted pages, not web crawled pages
 
 ### Nice to have
 - [ ] Send 429 (Too many requests) response when too many requests are sent within a given time
 - [ ] Create SSE connection on main page to instnantly update logs per webhook request
 - [ ] Add option to renew webhook expiry time back to 10 minutes
 - [ ] Filter logged requests by method
+- [ ] Add meta tags

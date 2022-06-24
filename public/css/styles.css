@@ -1,3 +1,7 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .border-radius {
     border-radius: 6px;
 }
@@ -32,4 +36,10 @@
 
 .h-6 {
     height: 1.5rem;
+}
+
+.mw-1024 {
+    max-width: 1024px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }

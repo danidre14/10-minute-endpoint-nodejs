@@ -1,13 +1,33 @@
 <% var endpointUrl; var duetime; var user; var logs; %>
+<nav class="navbar">
+    <div class="container">
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-brand">
+                <a href="/" class="navbar-item">
+                    10 Minute Endpoint
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <a class="navbar-item">About</a>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a href="https://github.com/danidre14/10-minute-endpoint-nodejs" target="_blank" class="button is-dark">Source</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 <section class="p-6 hero has-background-primary-dark has-text-light">
-    <div class="hero-content has-text-centered">
+    <div class="hero-content has-text-centered mw-1024">
         <div class="container">
-            <h1 class="title has-text-light is-1">Welcome to 10 minute endpoint</h1>
+            <h1 class="title has-text-light is-1">Welcome to 10 Minute Endpoint</h1>
             <h2 class="subtitle has-text-light is-3 mb-6">Endpoint testing made easy</h2>
             <div class="columns is-centered">
-                <div class="column is-half is-flex">
-                    <input class="input is-primary is-outlined" value="<%= endpointUrl %>" disabled />
-                    <button class="button is-primary ml-4" onClick="copyEndpointUrlToClipboard(event)">Copy To Clipboard</button>
+                <div class="column is-two-thirds is-flex-tablet">
+                    <input class="input is-primary is-outlined mb-4" value="<%= endpointUrl %>" disabled />
+                    <button class="button is-primary mb-4 ml-4" onClick="copyEndpointUrlToClipboard(event)">Copy To Clipboard</button>
                 </div>
             </div>
             <div class="columns is-centered">
