@@ -5,9 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#00947E">
+    <meta name="twitter:site" content="@danidre" />
+    <meta property="og:title" content="10 Minute Endpoint">
+    <meta name="twitter:domain" content="10minuteendpoint.net" />
+
+    <meta name="description" content="10 Minute Endpoint generates a temporary endpoint to test and inspect your webhooks and HTTP requests." />
+    <meta property="og:description" content="10 Minute Endpoint generates a temporary endpoint to test and inspect your webhooks and HTTP requests.">
+    <meta property="og:image" content="https://10minuteendpoint.net/icons/10me-logo-primary.png">
+    <meta property="og:image:width" content="128" />
+    <meta property="og:image:height" content="123" />
+    <meta property="og:image:alt" content="10 Minute Endpoint Brand Icon" />
+    <meta property="og:url" content="https://10minuteendpoint.net/">
+    <meta name="twitter:card" content="summary">
+
     <title>10 Minute Endpoint</title>
     <%- meta %>
     <%- style %>
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="stylesheet" href="css/bulma-0.9.4/bulma/css/bulma.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <%- script %>
@@ -15,10 +32,11 @@
 
 <body class="has-background-light">
     <div class="is-flex is-flex-direction-column vh-full has-background-primary">
+        <%- include("../menu.ejs") %>
         <main id="main" class="content is-flex-grow-1 mb-0">
             <%- body %>
         </main>
-        <%- include("../partials/footer.ejs") %>
+        <%- include("../footer.ejs") %>
     </div>
 </body>
 

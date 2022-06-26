@@ -24,12 +24,14 @@
 - [x] Upload to github
 - [x] Deploy to Linode
 - [x] Link to necessary pages
+- [x] Only generate endpoint for user interacted pages, not web crawled pages
+- [x] Create and add favicon
+- [x] Add 404 page not found
+- [x] Add necessary meta tags
+- [ ] Publish and link to article
 - [ ] Log a maximum of 20 requests at a time per endpoint (new ones replacing old ones)
 - [ ] Refactor server code
 - [ ] Refactor client code
-- [ ] Publish and link to article
-- [ ] Create and add favicon
-- [ ] Only generate endpoint for user interacted pages, not web crawled pages
 
 ### Nice to have
 - [ ] Send 429 (Too many requests) response when too many requests are sent within a given time

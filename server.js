@@ -31,6 +31,8 @@ const endpointRouter = require("./routes/endpoint");
 
 const apiRouter = require("./apis/index");
 
+const error404Router = require('./routes/error404');
+
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.set("layout", "layouts/layout");
@@ -56,7 +58,9 @@ app.use("/", indexRouter);
 app.use("/api", apiRouter);
 app.use("/endpoint", endpointRouter);
 
-const PORT = process.env.PORT || 5001;
+app.use(error404Router); //make sure to put this after all routes
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

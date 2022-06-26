@@ -24,9 +24,7 @@ router.get("/", detector.middleware(), function (req, res, next) {
 
         return next();
     } else {
-        res.setHeader('Content-Type', 'text/html');
-        res.write("<p>Nothing found</p>");
-        res.end();
+        res.render("error404");
     }
 })
 
