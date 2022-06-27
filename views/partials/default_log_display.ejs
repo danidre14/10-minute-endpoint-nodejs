@@ -3,7 +3,7 @@
         <p class="is-size-5 m-0 mb-4 has-text-light">Point your webhook or send an HTTP request to your endpoint and inspect its contents here!</p>
         <p class="is-size-6 m-0 mb-4 has-text-light">Example:</p>
         <div class="is-flex-grow-1 overflow-auto">
-            <pre id="default-log-display-code" class="border-radius is-flex-grow-1 p-2 h-full">fetch(endpointUrl, {
+            <pre id="default-log-display-code" class="border-radius is-flex-grow-1 p-2 h-full">fetch("<%= endpointUrl %>", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

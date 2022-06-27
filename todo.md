@@ -1,4 +1,4 @@
-## Task List
+## Task List (in random order)
 
 - [x] Generate random endpoint per user
 - [x] Let endpoint expire after 10 minutes
@@ -39,4 +39,3 @@
 - [ ] Create SSE connection on main page to instnantly update logs per webhook request
 - [ ] Add option to renew webhook expiry time back to 10 minutes
 - [ ] Filter logged requests by method
-- [ ] Add meta tags
