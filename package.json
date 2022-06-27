@@ -27,7 +27,6 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "isbot-fast": "^1.2.0",
-    "mongoose": "^6.3.5",
     "request-ip": "^2.2.0",
     "spider-detector": "^2.0.0"
   },

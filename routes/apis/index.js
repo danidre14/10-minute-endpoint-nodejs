@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 // Use the session middleware
 
-const User = require("../models/User");
-const Log = require("../models/Log");
+const User = require("../../models/User");
+const Log = require("../../models/Log");
 
 // Access the session as req.session
 // router.get('/', function (req, res, next) {

@@ -29,9 +29,10 @@
 - [x] Add 404 page not found
 - [x] Add necessary meta tags
 - [ ] Publish and link to article
-- [ ] Log a maximum of 20 requests at a time per endpoint (new ones replacing old ones)
+- [ ] Log a maximum of 25 requests at a time per endpoint (new ones replacing old ones)
 - [ ] Refactor server code
 - [ ] Refactor client code
+- [ ] Add github readme of project stack
 
 ### Nice to have
 - [ ] Send 429 (Too many requests) response when too many requests are sent within a given time
