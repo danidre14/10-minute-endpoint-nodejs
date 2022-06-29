@@ -49,8 +49,8 @@ git clone https://github.com/danidre14/10-minute-endpoint-nodejs.git
     * PORT
     * SESSION_SECRET
     * DATABASE_URL
-    
-Rename the `.env.sample` file to `.env` and use actual credentials obtained in the [Prerequisites](#heading-prerequisites).
+
+Rename the `.env.sample` file to `.env` and use actual credentials obtained in the [Prerequisites](#prerequisites).
 
 3. Install all dependencies:
 ```sh
