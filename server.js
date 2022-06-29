@@ -4,10 +4,8 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
-const helmet = require("helmet");
 const cors = require("cors");
 
-app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.use(cors());
 app.options(cors());
 
