@@ -22,7 +22,7 @@ const sessionConfig = {
 
 if (process.env.NODE_ENV === "production") {
     app.set("trust proxy", 0) // trust first proxy
-    app.get('/ip', (request, response) => response.send("IP: 2[]: " + request.ip))
+    app.get('/ip', (request, response) => response.send("IP: 0[]: " + request.ip))
     sessionConfig.cookie.secure = true // serve secure cookies
 }
 
