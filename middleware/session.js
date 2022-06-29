@@ -10,34 +10,21 @@ const router = express.Router();
 router.get("/", detector.middleware(), function (req, res, next) {
     const isbot = isBot(req.get('user-agent'));
     if (!isbot && !req.isSpider()) {
-        if (!req.session.usageData) {
-            const usageData = {
-                token: generateUserToken(),
+        if (!req.session.userData) {
+            const userData = {
                 endpoint: {
                     param: null,
                     expires: null
                 }
             };
 
-            req.session.usageData = usageData;
+            req.session.userData = userData;
         }
 
         return next();
     } else {
         res.render("error404");
     }
-})
-
-const userTokens = {};
-function generateUserToken() {
-    let token;
-    do {
-        token = crypto.randomBytes(30).toString('hex');
-    } while (userTokens[token]);
-
-    userTokens[token] = {};
-
-    return token;
-}
+});
 
 module.exports = router;
