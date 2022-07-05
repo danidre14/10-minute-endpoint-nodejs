@@ -28,6 +28,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-rate-limit": "^6.4.0",
     "express-session": "^1.17.3",
+    "express-xml-bodyparser": "^0.3.0",
     "isbot-fast": "^1.2.0",
     "request-ip": "^2.2.0",
     "spider-detector": "^2.0.0"

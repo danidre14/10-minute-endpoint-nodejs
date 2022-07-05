@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
-const app = express();
+const xmlparser = require('express-xml-bodyparser');
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const cors = require("cors");
+
+const app = express();
 
 app.use(cors());
 app.options(cors());
@@ -41,8 +43,9 @@ app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 app.use(expressLayouts);
 app.use(express.json());
-app.use(express.static("public")); //where most server files will be
 app.use(express.urlencoded({ limit: "10mb", extended: false }));
+app.use(xmlparser({ normalizeTags: false }));
+app.use(express.static("public")); //where most server files will be
 
 app.use(session(sessionConfig));
 app.use(sessionMiddleware);
