@@ -5,6 +5,7 @@ const xmlparser = require('express-xml-bodyparser');
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const cors = require("cors");
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -19,7 +20,10 @@ const sessionConfig = {
     secret: process.env.SESSION_SECRET,
     resave: false, //dont save variables if nothing has changed
     saveUninitialized: false, //dont save empty value in session if there is no value
-    cookie: { maxAge: 60000 * 10 }
+    cookie: { maxAge: 60000 * 10 },
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL,
+        ttl: 11 * 60
+     })
 }
 
 if (process.env.NODE_ENV === "production") {

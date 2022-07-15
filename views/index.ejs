@@ -9,6 +9,7 @@
     const endpointParam = "<%= endpointParam %>";
     window.onload = () => {
         window.logs = {};
+        window.endpointExpired = false;
         const duetime = document.getElementById("duetime");
         const expiryText = document.getElementById("expiryText");
 
@@ -20,6 +21,7 @@
             duetime.innerText = timeLeft;
         }
         const countdownComplete = function() {
+            window.endpointExpired = true;
             expiryText.innerHTML = `Your endpoint has expired. <span class="tag is-link is-hover" onclick="refreshPage()">Refresh</span> the page to get a new one.`;
         }
 
@@ -60,13 +62,17 @@
 
 
     const updateLogs = async function() {
-        const response = await fetch(`/api/logs/<%= endpointParam %>`);
-        const logs = await response.json();
+        try {
+            if(window.endpointExpired) return;
+            
+            const response = await fetch(`/api/logs/<%= endpointParam %>`);
+            const logs = await response.json();
 
-        const deltalogs = processLogs(logs);
-        renderLogs(deltalogs)
+            const deltalogs = processLogs(logs);
+            renderLogs(deltalogs)
 
-        setTimeout(updateLogs, 1000);
+            setTimeout(updateLogs, 1000);
+        } catch {}
     }
 
     function toggleHiddenLog(id) {
