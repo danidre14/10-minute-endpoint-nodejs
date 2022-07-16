@@ -21,9 +21,9 @@ const sessionConfig = {
     resave: false, //dont save variables if nothing has changed
     saveUninitialized: false, //dont save empty value in session if there is no value
     cookie: { maxAge: 60000 * 10 },
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL,
-        ttl: 11 * 60
-     })
+    store: MongoStore.create({
+        mongoUrl: process.env.DATABASE_URL,
+    })
 }
 
 if (process.env.NODE_ENV === "production") {
